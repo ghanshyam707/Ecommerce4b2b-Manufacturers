@@ -6,7 +6,7 @@ import PressedTile from '../Components/PressedTile/PressedTile';
 import Login from './Login';
 
 export default function login({ }) {
-  const [showLogin, setShowLogin] = useState(false);
+  const [showLogin, setShowLogin] = useState(true);
   return (
     <>
       <div className={styles['center']}>

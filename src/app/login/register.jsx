@@ -3,11 +3,15 @@
 import React from "react";
 import { Button, Form, Input } from "antd";
 const onFinish = (values) => {
-  fetch("/api/register", {
-    method: "POST",
-    body: JSON.stringify(values),
-    // body:values
-  });
+  try {
+    let res = fetch("/api/register", {
+      method: "POST",
+      body: JSON.stringify(values),
+    });
+  } catch (err) {
+    
+  }
+
 };
 
 const Register = ({ setShowLogin }) => {
@@ -56,7 +60,7 @@ const Register = ({ setShowLogin }) => {
           <Input />
         </Form.Item>
         <Form.Item
-          label="email"
+          label="Email"
           name="email"
           rules={[
             {
@@ -80,7 +84,7 @@ const Register = ({ setShowLogin }) => {
         </Form.Item>
 
         <Form.Item
-          label="industryname"
+          label="Industry Name"
           name="industryname"
           rules={[
             {
