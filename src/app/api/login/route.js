@@ -17,9 +17,7 @@ export async function POST(req) {
           { expiresIn: "7h" }
         );
         cookies().set("authorization", token, { httpOnly: true });
-        delete user.hash;
-        delete user.email;
-        return NextResponse.json({ status: "OK", user }, { status: 200 });
+        return NextResponse.json({ status: "OK" }, { status: 200 });
       } else {
        return NextResponse.json({ status: "WRONGPASSWORD" }, { status: 400 });
       }

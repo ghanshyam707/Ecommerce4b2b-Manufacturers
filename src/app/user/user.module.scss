@@ -1,4 +1,30 @@
-.layout{
-    height: 100vh;
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+.navbar {
+    position: fixed;
+    bottom: 10%;
+    right: 5%;
+
+}
+.comapany-banner {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  height: 70px;
+  align-items: center;
+}
+.main-content{
+  width: 70%;
+  min-height: 100vh;
+  margin: auto;
+}
+
+@media screen and (max-width: 600px) {
+
+  .main-content {
+    width: 100vw;
+  }
+
+  .navbar{
+    bottom: 5%;
+  }
 }

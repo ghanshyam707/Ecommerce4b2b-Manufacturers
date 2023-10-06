@@ -1,26 +1,20 @@
-"use client";
-
 import React from "react";
-import { Button, Form, Input } from "antd";
-const onFinish = (values) => {
-  try {
-    let res = fetch("/api/register", {
-      method: "POST",
-      body: JSON.stringify(values),
-    });
-  } catch (err) {
-    
-  }
-
+import { useForm, Controller } from "react-hook-form";
+import { Button, TextField } from "@mui/material";
+import { register } from "../_services/login.service";
+const onFinish = async (values) => {
+  await register()
+  
 };
 
 const Register = ({ setShowLogin }) => {
+  const { control, handleSubmit } = useForm();
   const handleLoginClick = () => {
     setShowLogin(true);
   };
   return (
     <>
-      <Form
+      {/* <Form
         name="basic"
         labelCol={{
           span: 8,
@@ -102,17 +96,116 @@ const Register = ({ setShowLogin }) => {
           }}>
           <Button
             type="primary"
-            htmlType="submit">
-            Submit
+            htmlType="submit"
+            block
+          >
+            Register
           </Button>
         </Form.Item>
-      </Form>
+      </Form> */}
+      <form
+        onSubmit={handleSubmit(onFinish)}
+        className="d-flex align-items-center flex-column w-100"
+      >
+        <Controller
+          name="firstname"
+          control={control}
+          render={({ field }) => {
+            return (
+              <TextField
+                id="firstname"
+                label="First Name"
+                fullWidth
+                size="small"
+                margin="normal"
+                {...field}
+              />
+            );
+          }}
+        />
+        <Controller
+          name="lastname"
+          control={control}
+          render={({ field }) => {
+            return (
+              <TextField
+                id="lastname"
+                label="Last Name"
+                fullWidth
+                size="small"
+                margin="normal"
+                {...field}
+              />
+            );
+          }}
+        />
+        <Controller
+          name="industryname"
+          control={control}
+          render={({ field }) => {
+            return (
+              <TextField
+                id="industryname"
+                label="Industry Name"
+                fullWidth
+                size="small"
+                margin="normal"
+                {...field}
+              />
+            );
+          }}
+        />
+        <Controller
+          name="email"
+          control={control}
+          render={({ field }) => {
+            return (
+              <TextField
+                id="email"
+                label="Email"
+                fullWidth
+                size="small"
+                margin="normal"
+                {...field}
+              />
+            );
+          }}
+        />
+
+        <Controller
+          name="password"
+          control={control}
+          render={({ field }) => {
+            return (
+              <TextField
+                id="email"
+                label="Password"
+                type="password"
+                fullWidth
+                size="small"
+                margin="normal"
+                {...field}
+              />
+            );
+          }}
+        />
+
+        <Button
+          type="submit"
+          variant="contained"
+          size="small"
+          sx={{ width: "30%" }}
+        >
+          Register
+        </Button>
+      </form>
       <hr></hr>
       <div>
         Already Registered ?
         <Button
           type="text"
-          onClick={handleLoginClick}>
+          onClick={handleLoginClick}
+        >
           {" "}
           Login here{" "}
         </Button>

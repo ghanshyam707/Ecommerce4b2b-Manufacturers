@@ -1,9 +1,28 @@
-.navbartile {
-  color: #000111;
-  text-align: center;
-  box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset,
-    rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+@import "../../global-variables.scss";
+
+.icon-style {
+  color: $primary-color;
 }
-.navbartile:hover{
-    box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+
+.active {
+  color: $alt-font-color;
+  background-color: $primary-color;
+  border-radius: 5px;
+}
+
+.active > .icon-style {
+  color: $alt-font-color;
+}
+
+.label-style{
+    font-size: 17px;
+    text-wrap: nowrap;
+    color: black;
+}
+@media screen and (max-width: 600px) {
+
+  .label-style{
+    font-size: 13px;
+  }
+
 }

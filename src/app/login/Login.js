@@ -1,87 +1,84 @@
-import { Button, Form, Input } from "antd";
-import { useRouter } from "next/navigation";
+'use client'
 
-export default function Login() {
-    const router = useRouter()
+import { useRouter } from "next/navigation";
+import { login } from "../_services/login.service";
+import { useForm, Controller } from "react-hook-form"
+import { Button, CircularProgress, TextField } from "@mui/material";
+import { useState } from "react";
+
+export default function Login({ setShowLogin }) {
+  const {
+    control,
+    handleSubmit,
+  } = useForm()
+  const [isLogining, setIsLogining] = useState(false)
   const handleLoginClick = () => {
     setShowLogin(false);
-    };
-    
+  };
+
+  const router = useRouter()
   const onFinish = async (values) => {
-    const res = await fetch("/api/login", {
-      method: "POST",
-      body: JSON.stringify(values),
-    });
-      const data = await res.json();
-      console.log(data)
-      if (data.status === 'OK') {
-          router.push('/user')
-      }
+    setIsLogining(true)
+    await login(values, router)
+    setIsLogining(false)
   };
   return (
     <>
-      <Form
-        name="basic"
-        labelCol={{
-          span: 8,
-        }}
-        wrapperCol={{
-          span: 16,
-        }}
-        style={{
-          maxWidth: 600,
-        }}
-        initialValues={{
-          remember: true,
-        }}
-        onFinish={onFinish}
-        // onFinishFailed={onFinishFailed}
-        autoComplete="on">
-        <Form.Item
-          label="Email"
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: "Please input your username!",
-            },
-          ]}>
-          <Input />
-        </Form.Item>
+      <div className="d-flex align-items-center flex-column">
+        <form onSubmit={handleSubmit(onFinish)} className="d-flex align-items-center flex-column w-100">
+          <Controller
+            name="email"
+            control={control}
+            render={({ field }) => {
+              return <TextField
+                id="email"
+                label="Email"
+                fullWidth
+                size="small"
+                margin="normal"
+                {...field} />
+            }}
+          />
 
-        <Form.Item
-          label="Password"
-          name="password"
-          rules={[
-            {
-              required: true,
-              message: "Please input your password!",
-            },
-          ]}>
-          <Input.Password />
-        </Form.Item>
 
-        <Form.Item
-          wrapperCol={{
-            offset: 8,
-            span: 16,
-          }}>
+
+          <Controller
+            name="password"
+            control={control}
+            render={({ field }) => {
+              return <TextField
+                id="email"
+                label="Password"
+                type='password'
+                fullWidth
+                size="small"
+                margin="normal"
+   
+
+                {...field} />
+            }}
+          />
+
+
           <Button
-            type="primary"
-            htmlType="submit">
-            Submit
+            type="submit"
+            variant="contained"
+            size="small"
+            sx={{width:'30%'}}
+          >
+            {isLogining ? <CircularProgress /> : 'Login'}
           </Button>
-        </Form.Item>
-      </Form>
-      <hr></hr>
-      <div>
-        Not Registered ?
-        <Button
-          type="text"
-          onClick={handleLoginClick}>
-          {" "}
-          Register here{" "}
-        </Button>
+        </form>
+        <hr></hr>
+        <div>
+          Not Registered ?
+          <Button
+            type="text"
+            onClick={handleLoginClick}>
+            {" "}
+            Register here{" "}
+          </Button>
+        </div>
       </div>
     </>
   );

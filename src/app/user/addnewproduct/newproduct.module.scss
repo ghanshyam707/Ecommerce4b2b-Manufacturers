@@ -1,0 +1,19 @@
+@import '../../global-variables.scss';
+.chip{
+    background-color: $primary-color;
+    width: 30ch;
+    color: $alt-font-color;
+    font-weight: bold;
+}
+
+.item-form{
+    width:60%;
+    margin: auto;
+}
+
+@media screen and (max-width : 600px) {
+  .item-form{
+    width:100%;
+
+}
+}
